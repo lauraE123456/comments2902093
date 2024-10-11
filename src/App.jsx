@@ -1,11 +1,23 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import ComentarioForm from './componentes/ComentarioForm';
+import Comentariolista from './componentes/ComentarioLista';
+import ComentarioStats from './componentes/ComentarioStats';
 import Header from './componentes/Header';
-import ComentarioItem from './componentes/ComentarioItem';
 import comentarios from './data/Comentarios';
 
 function App() {
     //estado para los comentarios
     const[comments,setcomments]= useState(comentarios)
+
+    const borrarItem = (id) =>{
+        if (
+        window.confirm("Está seguro de borrar el comentario?")){
+            //asignar nuevo estado a Comments:
+            //aplicar filter, para quitar los comentarios cuyo id concuerde 
+            // con el parametro
+            setcomments(comments.filter((c)=> c.id !==id))
+        }
+    }
 
         const titulo = "App de Comentarios";
         const Autor = "Laura Albarracín"
@@ -18,34 +30,16 @@ function App() {
   return (
     <div className='container'>
         
-        <Header titulo={titulo} Autor={Autor} Ficha={Ficha} Centro={Centro}/>
-        
-        <div>{titulo}</div>
-        <p>Hecha por{Autor}</p> 
+        <Header
+            titulo={titulo} Autor={Autor} Ficha={Ficha} Centro={Centro}/>
+        <ComentarioForm />
+        <ComentarioStats
+        comentarios={comments}
+        />
+        <Comentariolista 
+        comments={comments}
+        handleDelete={borrarItem}/>
 
-
-        { showComments &&
-            (
-                <div className='comments'>
-                    <h3>Comentarios:{comentarios.length}</h3>
-                    <ul>
-                        {
-                            comments.map(comentario => 
-                                <ComentarioItem 
-                                        key={comentario.id}
-                                        comentario={comentario.comentario}
-                                        calificacion={comentario.calificacion}
-                                
-                                />
-                                        
-                            )
-                        }
-                    </ul>
-                </div>
-
-            )
-        }
-        
     </div>
     
   )
