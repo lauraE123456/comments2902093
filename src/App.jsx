@@ -7,7 +7,7 @@ import comentarios from './data/Comentarios';
 
 function App() {
     //estado para los comentarios
-    const[comments,setcomments]= useState(comentarios)
+    const[comments,setComments]= useState(comentarios)
 
     const borrarItem = (id) =>{
         if (
@@ -15,7 +15,7 @@ function App() {
             //asignar nuevo estado a Comments:
             //aplicar filter, para quitar los comentarios cuyo id concuerde 
             // con el parametro
-            setcomments(comments.filter((c)=> c.id !==id))
+            setComments(comments.filter((c)=> c.id !==id))
         }
     }
 
@@ -27,12 +27,20 @@ function App() {
         const loading = false;
         const showComments = true;
         if(loading ===true) return (<h1>Cargando comentarios ...</h1>)
+        
+        const addComentario=(newComentario)=>{
+            //utilice el operacior spread
+            //para añaddir el newComentario
+            // a la lista de comentarios(state:comments)
+            setComments(prevComments => [...prevComments, newComentario])
+            // operador spread ...
+        }
   return (
     <div className='container'>
         
         <Header
             titulo={titulo} Autor={Autor} Ficha={Ficha} Centro={Centro}/>
-        <ComentarioForm />
+        <ComentarioForm handleAdd={addComentario} />
         <ComentarioStats
         comentarios={comments}
         />
