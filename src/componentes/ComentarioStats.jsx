@@ -1,6 +1,10 @@
-import React from 'react';
+import {React, useContext, useState} from 'react';
+import ComentariosContext from '../contexto/ComentariosContext';
 
-const ComentarioStats = ({ comentarios }) => {
+
+const ComentarioStats = () => {
+    const {comments} =useContext(ComentariosContext)
+    const comentarios = comments
     // Asegurarse de que 'comentarios' sea un arreglo
     const comentariosArray = comentarios || []; // Usar un arreglo vacío si 'comentarios' es undefined
 

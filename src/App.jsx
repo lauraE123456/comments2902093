@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
 import ComentarioForm from './componentes/ComentarioForm';
-import Comentariolista from './componentes/ComentarioLista';
+import ComentarioLista from './componentes/ComentarioLista';
 import ComentarioStats from './componentes/ComentarioStats';
 import Header from './componentes/Header';
 import comentarios from './data/Comentarios';
+import About from './paginas/About';
+import {BrowserRouter as Router,Routes,Route} from 'react-router-dom';
+import AboutIconLink from './componentes/AboutIconLink';
+import HomeIconLink from './componentes/HomeIconLink'; // Ajusta la ruta si es necesario
+import { ComentariosProvider } from './contexto/ComentariosContext';
 
 function App() {
     //estado para los comentarios
@@ -36,19 +41,34 @@ function App() {
             // operador spread ...
         }
   return (
-    <div className='container'>
-        
-        <Header
-            titulo={titulo} Autor={Autor} Ficha={Ficha} Centro={Centro}/>
-        <ComentarioForm handleAdd={addComentario} />
-        <ComentarioStats
-        comentarios={comments}
-        />
-        <Comentariolista 
-        comments={comments}
-        handleDelete={borrarItem}/>
+    <ComentariosProvider>
+        <Router>
+            <div className='container'>
+                
+                <Header titulo={titulo} Autor={Autor} Ficha={Ficha} Centro={Centro}/>
+                <Routes>
+                    <Route exact path="/" element={
+                        <>
+                        <ComentarioForm handleAdd={addComentario}/>
+                        <ComentarioStats comentarios={comments}/>
+                        <ComentarioLista />
+                        <AboutIconLink />
+                        </>
+                    }></Route>
 
-    </div>
+                    <Route path='/about' element={
+                        <>
+                        <About titulo={titulo} autor={Autor} ficha={Ficha}
+                        />
+                        <HomeIconLink />
+                        </>
+                    }></Route>
+                </Routes>
+
+
+            </div>
+        </Router>
+   </ComentariosProvider>
     
   )
 }

@@ -1,31 +1,28 @@
-import {React, useState} from 'react'
+import {React, useState, useContext} from 'react'
 import Card from './Card';
 import {FaTimes} from 'react-icons/fa'
-const ComentarioItem = ({calificacion,
-                          comentario,
-                          id,
-                          handleDelete}) => {
-    //manejo del westado de un comentario:
-    //comentario y calificacion como atributos
-    //mediante eol uso de Estados
-    const [comment, setComentario] = useState(comentario);
-    const [rating, setRating]= useState(calificacion)
-    const [identificacion, setIdentificacion]= useState(id)
+import ComentariosContext from '../contexto/ComentariosContext';
+
+
+const ComentarioItem = ({comentario}) => {
+
+    const [comment, setComentario] = useState(comentario.comentario);
+    const [rating, setRating]= useState(comentario.calificacion)
+    const [identificacion, setIdentificacion]= useState(comentario.id)
 
     const cambiarRating = () =>{
         setRating((prev)=>prev+1)
     }
-    //estilos para el
-    //metodo para ekl boton borrarItem
+
     const borrarItem=(identificacion)=>{
-      console.log(`App ${id}`)
+      console.log(`App ${comentario.id}`)
 
     }
   return (
     <Card reverse={false}>
         <div className='num-display'>{rating}</div>
         <button 
-          onClick={ () => handleDelete(identificacion) }
+          onClick={ () => borrarItem(identificacion) }
           className='close'
           >
           <FaTimes color='purple'/>
