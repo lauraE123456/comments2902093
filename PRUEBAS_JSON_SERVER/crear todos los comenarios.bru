@@ -1,0 +1,19 @@
+meta {
+  name: crear todos los comenarios
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:5000/comentarios
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+          "id":4,
+          "comentario":"nuevo comentarios",
+          "calificacion":1444
+      }
+}

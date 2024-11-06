@@ -1,15 +1,19 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 const ComentariosContext = createContext();
 
 export const ComentariosProvider = ({ children }) => {
-    const [comments, setComments] = useState([
-        {
-            id: 1,
-            comentario: "Este es un comentario",
-            calificacion: 3
-        },
-    ]);
+    const [comments, setComments] = useState([]);
+
+    useEffect(()=>{
+        fetchComentarios()
+    },[])
+
+    const fetchComentarios=async ()=>{
+        const response = await fetch('http://localhost:5000/comentarios')
+        const comentariosApi= await response.json()
+        setComments(comentariosApi)
+    }
 
     const borrarItem = (id) => {
         if (window.confirm("¿Está seguro de borrar el comentario?")) {

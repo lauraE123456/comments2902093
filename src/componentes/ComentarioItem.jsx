@@ -1,7 +1,6 @@
-import {React, useState, useContext} from 'react'
+import { React, useState } from 'react';
+import { FaTimes } from 'react-icons/fa';
 import Card from './Card';
-import {FaTimes} from 'react-icons/fa'
-import ComentariosContext from '../contexto/ComentariosContext';
 
 
 const ComentarioItem = ({comentario}) => {

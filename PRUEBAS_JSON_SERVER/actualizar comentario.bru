@@ -1,0 +1,19 @@
+meta {
+  name: actualizar comentario
+  type: http
+  seq: 5
+}
+
+patch {
+  url: http://localhost:5000/comentarios/2
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "id": "2",
+    "comentario": "holaaaaaaaaaaaaaa",
+    "calificacion": 7
+  }
+}
